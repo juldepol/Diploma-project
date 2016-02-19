@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+    <head>
+        <title>Diploma project</title>
+    </head>
+    <body>
+        <div ng-controller="navController">
+            <a href="/" ng-class="{active: isActive('/')}"><p>News</p></a>
+            <a href="/games" ng-class="{active: isActive('/games')}"><p>Games</p></a>
+            <a href="/about" ng-class="{active: isActive('/about')}"><p>About</p></a>
+            <h2>Welcome, <span id="display-name"></span>!</h2>
+            <a href="/logout"><p>Logout</p></a>
+        </div>
+
+        <div ng-view></div>
+    </body>
+    <script type="text/javascript" src="common/ajax-functions.js"></script>
+    <script type="text/javascript" src="controllers/userController.client.js"></script>
+    <script type="text/javascript" src="/static/libs/angular/angular.js"></script>
+    <script type="text/javascript" src="/static/libs/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="/static/js/app.js"></script>
+    <script type="text/javascript" src="/static/js/controllers/navController.js"></script>
+    <script type="text/javascript" src="/static/js/controllers/newsController.js"></script>
+    <script type="text/javascript" src="/static/js/controllers/gamesController.js"></script>
+    <script type="text/javascript" src="/static/js/controllers/aboutController.js"></script>
+</html>

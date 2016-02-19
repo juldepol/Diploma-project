@@ -1,0 +1,24 @@
+{
+  "name": "diploma",
+  "description": "It is my diploma project. God, please, help me!",
+  "main": "server.js",
+  "authors": [
+    "Julia Polnaya & Anastasia Lozova"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "diploma",
+    "project",
+    "omg",
+    "wtf"
+  ],
+  "install": {
+    "path": "static/libs"
+  },
+  "homepage": "https://github.com/juldepol/Diploma-project",
+  "moduleType": [],
+  "dependencies": {
+    "angular-route": "^1.5.0",
+    "angular": "^1.5.0"
+  }
+}
