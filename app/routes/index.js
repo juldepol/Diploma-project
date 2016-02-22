@@ -15,14 +15,14 @@ module.exports=function (app, passport) {
     });
     
     app.route('/login').get(function (req, res){
-        res.sendFile(path+'/static/login.html');
+        res.render(path+'/static/partials/login.ejs');
     });
     
     app.route('/logout').get(function (req, res){
         req.logout();
         res.redirect('/login');
     });
-    
+    /*
     app.route('/api/:id').get(isLoggedIn, function(req, res) {
         if(JSON.stringify(req.user.github)===JSON.stringify({}) && JSON.stringify(req.user.google)===JSON.stringify({})){
             res.json(req.user.vkontakte);
@@ -34,7 +34,7 @@ module.exports=function (app, passport) {
             res.json(req.user.google);
         }
     });
-    
+    */
     
     app.route('/auth/github')
         .get(passport.authenticate('github'));
