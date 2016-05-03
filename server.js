@@ -12,7 +12,10 @@ require('./app/config/passport')(passport);//???
 mongoose.connect(process.env.MONGO_URI);
 
 app.set('view engine', 'ejs');
-
+/*
+var bodyParser=require("body-parser");
+app.use(bodyParser.json());
+*/
 //???
 app.use('/controllers', express.static(process.cwd()+'/app/controllers'));
 //mounting middleware for static files
@@ -30,9 +33,11 @@ app.use(session({
 app.use(passport.initialize());//???
 app.use(passport.session());//???
 
+var api=express.Router();
+require('./app/routes/api')(api);
+app.use('/api', api);
+
 routes(app, passport);//???
-
-
 var port=process.env.PORT || 8080;
 app.listen(port, function () {
     console.log("Listening on port "+port);

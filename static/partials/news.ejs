@@ -1,8 +1,11 @@
 <div ng-controller="navController">
-            <a href="/" ng-class="{active: isActive('/')}"><p>News</p></a>
-            <a href="/games" ng-class="{active: isActive('/games')}"><p>Games</p></a>
-            <a href="/about" ng-class="{active: isActive('/about')}"><p>About</p></a>
-            <h2>Welcome, <span id="display-name"></span>!</h2>
-            <a href="/logout"><p>Logout</p></a>
+    <ul>
+        <li><a href="/" ng-class="{active: isActive('/')}">News</a></li>
+        <li><a href="/games" ng-class="{active: isActive('/games')}">Games</a></li>
+        <li><a href="/about" ng-class="{active: isActive('/about')}">About</a></li>
+        <li>Welcome, <span id="display-name">{{customer.displayName}}</span>!</li>
+        <li><a href="/logout">Logout</a></li>
+        <li><a href="/delete">Delete</a></li>
+    </ul>
 </div>
 <h1>News page</h1>

@@ -19,6 +19,7 @@
   "moduleType": [],
   "dependencies": {
     "angular-route": "^1.5.0",
-    "angular": "^1.5.0"
+    "angular": "^1.5.0",
+    "angular-resource": "^1.5.0"
   }
 }

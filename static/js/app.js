@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute'])
+var myApp = angular.module('myApp', ['ngRoute', 'ngResource'])
     .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider.when('/', {templateUrl:'/static/partials/news.ejs', controller: 'newsController'});
         $routeProvider.when('/games', {templateUrl:'/static/partials/games.ejs', controller: 'gamesController'});
