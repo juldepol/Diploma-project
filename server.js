@@ -32,11 +32,11 @@ app.use(session({
 
 app.use(passport.initialize());//???
 app.use(passport.session());//???
-
+/*
 var api=express.Router();
 require('./app/routes/api')(api);
 app.use('/api', api);
-
+*/
 routes(app, passport);//???
 var port=process.env.PORT || 8080;
 app.listen(port, function () {

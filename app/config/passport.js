@@ -5,11 +5,14 @@ var VKontakteStrategy = require('passport-vkontakte').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
+var fs=require("fs");
+
+function avatarGenerator(){
+	var array=["elephant.png", "giraffe.png", "hippo.png","monkey.png","panda.png","parrot.png","penguin.png","pig.png","rabbit.png","snake.png"];
+	return array[Math.floor((Math.random() * array.length))];
+}
 
 
-/*???
-passport-
-*/
 module.exports = function (passport) {
 	/*Passport will maintain persistent login sessions. 
 	In order for persistent sessions to work, the authenticated 
@@ -60,11 +63,9 @@ module.exports = function (passport) {
 					return done(null, user);
 				} else {//if not
 					var newUser = new User();//create new user profile
-
 					newUser.github.id = profile.id;
-					newUser.github.username = profile.username;
-					newUser.github.displayName = profile.displayName;
-					
+					newUser.github.displayName = profile.username;
+					newUser.github.avatar = avatarGenerator();
 					//Saves this document (user)
 					newUser.save(function (err) {
 						if (err) {
@@ -93,8 +94,8 @@ module.exports = function (passport) {
 				} else {
 					var newUser = new User();
 					newUser.vkontakte.id = profile.id;
-					newUser.vkontakte.username = profile.username;
 					newUser.vkontakte.displayName = profile.displayName;
+					newUser.vkontakte.avatar = avatarGenerator();
 					newUser.save(function (err) {
 						if (err) {
 							throw err;
@@ -121,9 +122,8 @@ module.exports = function (passport) {
 				} else {
 					var newUser = new User();
 					newUser.google.id = profile.id;
-					newUser.google.token = profile.accessToken;
 					newUser.google.displayName = profile.displayName;
-					newUser.google.email = profile.emails[0].value;
+					newUser.google.avatar = avatarGenerator();
 					newUser.save(function (err) {
 						if (err) {
 							throw err;

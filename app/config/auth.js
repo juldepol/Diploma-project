@@ -1,9 +1,6 @@
 'use strict';
 /*
-I don`t know why this part of code is here. 
-In my opinion, it should be in passport.js where is initialized 
-new GithubStrategy. But whatever.
-Maybe it will be useful when other authentification possibilities will be added.
+
 */
 module.exports = {
 	'githubAuth': {

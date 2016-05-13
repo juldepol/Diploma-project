@@ -1,4 +1,5 @@
 .env
 /node_modules
 /bower_components
+/static/libs
 /.c9

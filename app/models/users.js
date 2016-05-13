@@ -1,21 +1,20 @@
 var mongoose=require("mongoose");
-//kinda class
+
 var User = new mongoose.Schema({
 	github: {
 		id: String,
 		displayName: String,
-		username: String
+		avatar:  String
 	},
 	vkontakte: {
 		id: String,
 		displayName: String,
-		username: String
+		avatar:  String
 	},
 	google: {
 		id: String,
-		token: String,
-		email: String,
-		displayName: String
+		displayName: String,
+		avatar:  String
 	}
 });
 //compiling a 'User' model using the userSchema as the structure
