@@ -5,7 +5,6 @@ var VKontakteStrategy = require('passport-vkontakte').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
-var fs=require("fs");
 
 function avatarGenerator(){
 	var array=["elephant.png", "giraffe.png", "hippo.png","monkey.png","panda.png","parrot.png","penguin.png","pig.png","rabbit.png","snake.png"];
@@ -71,6 +70,7 @@ module.exports = function (passport) {
 						if (err) {
 							throw err;
 						}
+						console.log("+1");
 						return done(null, newUser);
 					});
 				}
@@ -100,6 +100,7 @@ module.exports = function (passport) {
 						if (err) {
 							throw err;
 						}
+						console.log("+1");
 						return done(null, newUser);
 					});
 				}
@@ -128,6 +129,7 @@ module.exports = function (passport) {
 						if (err) {
 							throw err;
 						}
+						console.log("+1");
 						return done(null, newUser);
 					});
 				}

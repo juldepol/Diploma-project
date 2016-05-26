@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Diploma project</title>
+        <style>
+            #input{width: 500px;}
+            #messages { list-style-type: none; margin: 0; padding: 0;}
+        </style>
+        <script  type="text/javascript" src="/static/libs/jquery/jquery.min.js"></script>
+        <script  type="text/javascript" src="/static/libs/socket.io-client/socket.io.js"></script>
+    </head>
+    <body>
+        <% include partials/navbar%>
+        <h1>Chat</h1>
+        <ul id="messages"></ul>
+        <form>
+            <input id="input" autocomplete="off" autofocus placeholder="Write the message..."/>
+            <input type="submit" value="Send"></input>
+        </form>
+    </body>
+    <script>
+        var socket = io();
+        $('form').submit(function(e){
+            e.preventDefault();
+            socket.emit('message', $('#input').val());
+            $('#input').val('');
+            return false;
+        });
+        socket.on('message', function(msg){
+            $('#messages').append($('<li>').text(msg.author + ":   " +msg.content));
+            console.log(msg);
+        });
+    </script>
+</html>

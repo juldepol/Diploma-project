@@ -1,44 +1,38 @@
-var express=require("express");
-var mongoose=require("mongoose");
-var passport=require("passport");
-var session=require("express-session");
-var routes=require("./app/routes/index.js")//???
+var express = require("express");
+var mongoose = require("mongoose");
+var passport = require("passport");
+var session = require("express-session");
+var routes = require("./app/routes/index.js")//???
 
-var app=express();
+var app = express();
 require("dotenv").load();//load environment variables
 require('./app/config/passport')(passport);//???
 
-//connecting to database
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI);//connecting to database
 
 app.set('view engine', 'ejs');
-/*
-var bodyParser=require("body-parser");
-app.use(bodyParser.json());
-*/
-//???
-app.use('/controllers', express.static(process.cwd()+'/app/controllers'));
+
 //mounting middleware for static files
 app.use('/static', express.static(process.cwd()+'/static'));
-//???
-app.use('/common', express.static(process.cwd()+'/app/common'));
 
 //???
-app.use(session({
+var sessionMiddleware = session({
     secret: 'wat',//for signing session ID cookie
     resave: false,
     saveUninitialized: true
-}));
-
+});
+app.use(sessionMiddleware);
 app.use(passport.initialize());//???
 app.use(passport.session());//???
-/*
-var api=express.Router();
-require('./app/routes/api')(api);
-app.use('/api', api);
-*/
-routes(app, passport);//???
-var port=process.env.PORT || 8080;
-app.listen(port, function () {
+
+var port = process.env.PORT || 8080;
+var server = app.listen(port, function () {
     console.log("Listening on port "+port);
 });
+
+var io = require('socket.io').listen(server);
+io.use(function(socket, next){
+    sessionMiddleware(socket.request, {}, next);
+});
+routes(app, passport, io);//routing, authentication and chat
+

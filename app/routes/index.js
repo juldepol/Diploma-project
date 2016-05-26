@@ -1,7 +1,8 @@
 var path=process.cwd();//returns current working directory
 var user = require('../models/users');
+var Message = require('../models/messages');
 
-module.exports=function (app, passport) {
+module.exports=function (app, passport, io) {
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
             return next();
@@ -21,9 +22,33 @@ module.exports=function (app, passport) {
         } else if (google.toString()!=='{}') {
             return google;
         } else {
-            return "If you see it, the person who wrote this server is dumb like shit!!!";
+            return "If you see it, the person who wrote this server is dumb!!!";
         }
     }
+    //Chat!!!
+    io.on('connection', function(socket){
+        if (socket.request.session.passport !== undefined){
+            var userId = socket.request.session.passport.user;
+            socket.on('message', function(msg){
+                var newMessage = new Message();
+                newMessage.author = userId;
+                newMessage.content = msg;
+                newMessage.save(function(err) {
+                    if (err) throw err;
+                    user.find({_id: userId},function(err, data) {
+                        if (err) throw err;
+                        var record = {
+                            author: userData(data[0]).displayName,
+                            avatar: userData(data[0]).avatar,
+                            content: msg,
+                            time: new Date()
+                        };
+                        io.emit('message', record);
+                    });
+                });
+            });
+        }
+    });
     
     app.route('/').get(isLoggedIn, function (req, res){
          res.render(path+'/static/news.ejs',{displayName: userData(req.user).displayName});
@@ -31,6 +56,11 @@ module.exports=function (app, passport) {
      
     app.route('/news').get(isLoggedIn, function (req, res){
         res.render(path+'/static/news.ejs',{displayName: userData(req.user).displayName, avatar: userData(req.user).avatar});
+    });
+    
+    app.route('/chat').get(isLoggedIn, function (req, res){
+        res.render(path+'/static/chat.ejs',{displayName: userData(req.user).displayName, avatar: userData(req.user).avatar});
+        
     });
     
     app.route('/games').get(isLoggedIn, function (req, res){
